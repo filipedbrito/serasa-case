@@ -1,147 +1,207 @@
-# Análise de Receita — Crédito
+# Case — Marketplace de Crédito Serasa
+---
 
 ## Objetivo
 
-Identificar, por produto e perfil de cliente, quais alavancas mais impactam a receita:
+Analisar o desempenho dos produtos de crédito em um marketplace, identificando:
 
-* volume (simulações)
-* conversão
-* receita por conversão
-
----
-
-## Modelo
-
-Receita pode ser decomposta como:
-
-```
-receita = volume × conversão × receita_por_conversão
-```
+- Gaps no funil de conversão  
+- Diferenças de performance por produto  
+- Oportunidades de crescimento de receita  
 
 ---
 
-## Observações sobre os dados
+## Framework de análise
 
-O dataset não representa um funil estritamente linear.
+A receita foi decomposta em três principais alavancas:
 
-* `elegíveis` pode ser maior que `simulando`
-* possível existência de múltiplas ofertas por usuário
-* métricas podem estar em granularidades diferentes
+Receita = Volume × Conversão × Receita por Conversão
 
-A interpretação deve considerar um modelo de múltiplas oportunidades de crédito, e não um funil clássico.
+### Definições
+
+- Volume (Simulação): Interesse no produto  
+- Elegibilidade: Capacidade de concessão (risco de crédito)  
+- Oferta: Disponibilidade de produtos, parceiros e condições  
+- Conversão: Decisão do usuário  
+- Receita por conversão: Ticket médio  
+
+---
+
+## Visão geral de receita
+
+- Receita total: R$ 2,73M  
+- Forte concentração:
+  - Cartão de crédito (~51%)
+  - Empréstimo pessoal (~26%)
+- Ticket médio geral: R$ 3,9  
+
+### Insight
+
+A receita atual está baseada em alto volume e baixo ticket médio, indicando:
+
+- Dependência de poucos produtos  
+- Baixa diversificação de receita  
+- Oportunidade de crescimento via mudança de mix  
+
+---
+
+## Funil de vendas
+
+| Etapa | Volume | Taxa |
+|------|--------|------|
+| Simulação | 170,3M | — |
+| Elegíveis | 38,9M | 23% |
+| Retorno de oferta | 18,1M | 47% |
+| Conversão | 702K | 4% |
+
+### Insight
+
+As maiores perdas ocorrem em:
+
+- Simulação → Elegibilidade  
+- Oferta → Conversão  
 
 ---
 
 ## Segmentação de clientes
 
-Perfis construídos a partir de:
+Segmentação baseada em:
 
-* score de crédito
-* renda
-* status de negativação
-* idade (ajuste secundário)
+- Score de crédito  
+- Renda  
+- Faixa etária  
+- Status de negativação  
 
-Perfis definidos:
+### Grupos definidos
 
-* premium
-* bom_pagador
-* potencial
-* medio
-* inicio_credito
-* baixa_qualidade
-* baixo_score
-* restrito
+- Alta qualidade  
+- Médio potencial  
+- Baixa maturidade  
+- Risco / baixa qualidade  
 
-Objetivo da segmentação: reduzir a variabilidade e permitir análise e ação direcionada.
+### Insight
+
+Os perfis determinam acesso ao produto e performance ao longo do funil.
 
 ---
 
-## Estrutura da análise
+## Diagnóstico por etapa do funil
 
-Tabela principal:
+### Demanda x Elegibilidade
 
-```
-perfil_cliente × produto
-```
+- Cartão possui alta elegibilidade  
+- Demanda não está alinhada com elegibilidade dos perfis  
 
-Métricas disponíveis:
+Insight: usuários buscam produtos que não conseguem acessar.
 
-* total_simulando
-* total_elegiveis
-* total_conversao
-* total_receita
+Oportunidades:
 
----
-
-## Métricas derivadas
-
-```
-conversao = total_conversao / total_elegiveis
-receita_por_conversao = total_receita / total_conversao
-receita_por_simulacao = total_receita / total_simulando
-```
-
-A métrica principal para comparação é:
-
-```
-receita_por_simulacao
-```
+- Recomendação de produto baseada em perfil  
+- Redirecionamento durante a jornada  
+- Reordenação de vitrine  
 
 ---
 
-## Status
+### Distribuição de oferta
 
-Concluído:
+- Alta oferta em produtos menos restritivos (conta, consignado)  
+- Baixa cobertura em produtos mais exigentes  
 
-* análise de volume e sazonalidade
-* construção de perfis de cliente
-* agregação perfil × produto
-* cálculo de métricas principais
-* exploração inicial dos dados
+Insight: a oferta acompanha o perfil, mas não é usada de forma ativa para direcionamento.
 
-Pontos de atenção:
+Oportunidades:
 
-* elegibilidade maior que volume em alguns produtos
-* taxas de conversão muito estáveis ao longo do tempo
-* necessidade de validação das definições de métricas
+- Melhorar match produto × perfil  
+- Expandir cobertura em perfis elegíveis  
+- Aumentar exposição de produtos com alta oferta  
 
 ---
 
-## Próximos passos
+### Conversão
 
-1. Analisar a tabela `perfil × produto` com foco em:
+- Maior conversão quando há fit entre perfil e produto  
+- Baixa conversão em produtos com menor valor percebido  
 
-   * receita
-   * conversão
-   * receita_por_simulacao
+Insight: conversão depende de fit e valor percebido.
 
-2. Classificar combinações em:
+Oportunidades:
 
-* alto volume + alta receita → escalar
-* alto volume + baixa receita → otimizar
-* baixo volume + alta receita → expandir
-* baixo volume + baixa receita → despriorizar
-
-3. Validar com o time:
-
-* definição de elegibilidade
-* granularidade dos dados
-* lógica de conversão
+- Ajustar proposta de valor  
+- Otimizar UX e jornada  
+- Testes de conversão  
 
 ---
 
-## Links
+## Alavancas de crescimento
 
-Planilha:
-https://docs.google.com/spreadsheets/d/1brGaTDOvhRGt9DIhHJLizVU40zYnfC6iLgBwJ-QLGxg/edit?usp=sharing
+Volume:
+- Direcionamento de demanda
 
-Notebook:
-https://dbc-905e5752-09c9.cloud.databricks.com/editor/notebooks/3207783246180340?o=7474647676028865
+Conversão:
+- Personalização de jornada  
+- Melhoria de proposta de valor  
+
+Receita por conversão:
+- Aumento da participação de produtos de maior ticket  
 
 ---
 
-## Nota
+## Potencial de receita
 
-A análise está estruturada até o nível de perfil × produto.
+Curto prazo:
+- Redirecionamento de demanda  
+- Exposição de produtos com alta oferta  
 
-O próximo passo é consolidar os achados e direcionar ações de negócio, após validação das premissas de dados.
+Médio prazo:
+- Melhoria de conversão  
+- Personalização por perfil  
+
+Longo prazo:
+- Expansão de produtos de alto ticket  
+- Mudança de mix  
+
+---
+
+## Priorização de iniciativas
+
+Critérios:
+
+- Impacto no funil (volume, conversão, ticket)  
+- Potencial de receita  
+- Complexidade de implementação  
+
+Complexidade considera:
+
+- Esforço técnico  
+- Dependências organizacionais  
+- Tempo de implementação  
+
+### Matriz
+
+| Impacto | Baixa Complexidade | Alta Complexidade |
+|--------|------------------|------------------|
+| Alto | Direcionamento de demanda baseado em perfil <br> Potencial: alto | Expansão de produtos de alto ticket <br> Potencial: muito alto |
+| Médio | Reordenação de vitrine <br> Potencial: incremental | Personalização de jornada <br> Potencial: alto estrutural |
+| Incremental | Testes de UX <br> Potencial: baixo a incremental | — |
+
+---
+
+## Conclusão
+
+O principal gap está no alinhamento entre:
+
+- Perfil do cliente  
+- Produto ofertado  
+- Momento da jornada  
+
+O crescimento mais eficiente vem de:
+
+- Direcionar melhor a demanda existente  
+- Aumentar conversão  
+- Evoluir o mix de produtos  
+
+---
+
+## Observações
+
+As recomendações são estratégicas devido à granularidade dos dados, que não permite análise detalhada de jornada ou regras de crédito.
