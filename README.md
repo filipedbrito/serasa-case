@@ -48,7 +48,6 @@ Os dados não representam um funil linear (elegíveis pode ser maior que simulan
 
 ## Referências
 
-* exploratory_guide.md
 * exploratory_data.ipynb
 * planilha: https://docs.google.com/spreadsheets/d/1brGaTDOvhRGt9DIhHJLizVU40zYnfC6iLgBwJ-QLGxg/edit?usp=sharing
 * apresentação: https://docs.google.com/presentation/d/10ravmZybtYgnizuRnLi4tayPelf5cSH-9kEK7y9i9N4/edit?slide=id.g3d35682f9f5_0_113#slide=id.g3d35682f9f5_0_113
